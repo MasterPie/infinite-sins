@@ -6,39 +6,6 @@ var connectionString = process.env.DATABASE_URL || 'pg://postgres:Kaoken@localho
 
 var client = new pg.Client(connectionString);
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-	var result;
-	
-	pg.connect(connectionString, function(err, client, done){
-		var query = client.query("SELECT * FROM items ORDER BY id desc LIMIT 1");
-	
-		query.on("row", function (row) {
-			result = row;
-		});
-		
-		query.on('end', function() { 
-		
-			client.end();
-			
-			//img_html = '<img alt="Embedded Image" src="data:image/png;base64,' + result.image + '"/>';
-			//var sf = result.image;//.image
-			//var image_data = sf[0]
-			//console.log(image_data)
-			//console.log(JSON.parse(sf).type)
-			res.render("test.html", result)
-			//return res.send(img_html)
-			//return res.json(sf);
-		});
-		
-		// Handle Errors
-        if(err) {
-          console.log(err);
-        }
-		
-	});
-});
-
 router.post('/', function(req, res){
 	var size = 0;
 	var image ='';
@@ -55,9 +22,9 @@ router.post('/', function(req, res){
 			console.log("total size = " + size);
 			
 			var query = client.query("INSERT INTO items(image) values($1)",[image]);
-			query.on('end', function() { client.end(); res.end("Thanks");});
+			query.on('end', function() { client.end(); res.end("Thanks"); });
 				
-			
+			;
 		}); 
 
 		req.on('error', function(e) {
