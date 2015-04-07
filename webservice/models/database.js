@@ -3,5 +3,9 @@ var connectionString = process.env.DATABASE_URL || 'pg://postgres:Kaoken@localho
 
 var client = new pg.Client(connectionString);
 client.connect();
-var query = client.query('CREATE TABLE items(id SERIAL PRIMARY KEY, image bytea not null)');
-query.on('end', function() { client.end(); });
+
+var query = client.query('CREATE TABLE items(id SERIAL PRIMARY KEY, image bytea not null, evil boolean DEFAULT false)');
+
+query.on('end', function() { 
+	client.end(); 
+});
