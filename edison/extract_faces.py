@@ -2,18 +2,19 @@ import cv2.cv as cv
 import sys
 import base64
 import cv2
+import os
 
 cascPath = sys.argv[1]
 faceCascade = cv2.CascadeClassifier(cascPath);
+
+SNAPSHOT_DIR = "snapshots/"
 
 from urllib2 import Request, urlopen, URLError
 from urllib import urlencode
 
 PADDING = 20
 
-#capture = cv.CaptureFromCAM(0)
 video_capture = cv2.VideoCapture(0)
-#img = cv.QueryFrame(capture)
 ret, img = video_capture.read()
 video_capture.release()
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -34,27 +35,16 @@ for (x, y, w, h) in faces:
 	crop_img = img[y-PADDING:y+h+PADDING,x-PADDING:x+w+PADDING]
 	face_imgs.append(crop_img)
 
-#cv.SaveImage("camera.jpg", img)
-cv2.imwrite('camera.jpg', face_imgs[0])
+os.system("python clear.py")
 
-host = "http://vivek-notebook:3000"
+snapshot_id = 1
 
-try:
-	with open("camera.jpg", "rb") as image_file:
-		image_data = image_file.read();
-		encoded_string = image_data.encode("base64")
+for face_img in face_imgs:
+	cv2.imwrite(SNAPSHOT_DIR + `snapshot_id` + '.jpg', face_img)
+	snapshot_id = snapshot_id + 1
 
-	values = encoded_string;
-	data = values;
-	#data = urlencode(values);
+snapshot_id = 1
 
-	request = Request(host + "/upload",data,headers={'Content-type': 'text/plain'})
+for face_img in face_imgs:
+	os.system("python transmit.py " + SNAPSHOT_DIR + `snapshot_id` + '.jpg')
 
-	response = urlopen(request)
-	print response.geturl()
-	print response.info()
-	kittens = response.read()
-	print kittens
-
-except URLError, e:
-	print "Nope...Error code:" , e

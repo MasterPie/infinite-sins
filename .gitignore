@@ -27,4 +27,4 @@ build/Release
 node_modules
 
 # Webcam files
-edison/*.jpg
+edison/snapshots/*.jpg
