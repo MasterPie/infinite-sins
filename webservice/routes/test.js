@@ -8,13 +8,13 @@ var client = new pg.Client(connectionString);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	var result;
+	var result = [];
 	
 	pg.connect(connectionString, function(err, client, done){
-		var query = client.query("SELECT * FROM items ORDER BY id desc LIMIT 1");
+		var query = client.query("SELECT * FROM items");
 	
 		query.on("row", function (row) {
-			result = row;
+			result.push(row);
 		});
 		
 		query.on('end', function() { 
@@ -26,7 +26,8 @@ router.get('/', function(req, res, next) {
 			//var image_data = sf[0]
 			//console.log(image_data)
 			//console.log(JSON.parse(sf).type)
-			res.render("test.html", result)
+			var data = {'items' : result};
+			res.render("test.html", data)
 			//return res.send(img_html)
 			//return res.json(sf);
 		});

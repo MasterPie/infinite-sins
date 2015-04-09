@@ -1,1 +1,3 @@
-<img alt="Embedded Image" src="data:image/png;base64,<%=  image.toString() %>"/>
+<% for(var i=0; i < items.length;i++){ %>
+<img alt="Embedded Image" src="data:image/png;base64,<%=  items[i].image.toString() %>"/>
+<%}%>
