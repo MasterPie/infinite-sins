@@ -19,7 +19,7 @@ try:
 
 	response = urlopen(request)
 	print response.geturl()
-	print response.info()
+#	print response.info()
 	kittens = response.read()
 	print kittens
 
