@@ -15,6 +15,9 @@ progress_pin.dir(mraa.DIR_OUT)
 flash_pin = mraa.Gpio(9)
 flash_pin.dir(mraa.DIR_OUT)
 
+flash_pin_sec = mraa.Gpio(10)
+flash_pin_sec.dir(mraa.DIR_OUT)
+
 closebtn_pin = mraa.Gpio(2)
 closebtn_pin.dir(mraa.DIR_IN)
 
@@ -56,8 +59,10 @@ def do_calm_candle():
 	
 def do_faces():
 	flash_pin.write(1)
+	flash_pin_sec.write(1)
 	os.system("python extract_faces.py haarcascade_frontalface_default.xml")
 	flash_pin.write(0)
+	flash_pin_sec.write(0)
 
 def do_clear():
 	os.system("python clear.py")
