@@ -62,7 +62,7 @@ for i in circles[0,:]:
 	crop_img = img[y-r:y+r, x-r:x+r]
 	sketch_imgs.append(crop_img)
 
-os.system("python clear.py")
+#os.system("python clear.py")
 
 snapshot_id = 1
 
