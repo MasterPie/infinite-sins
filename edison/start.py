@@ -42,7 +42,11 @@ def blink_progress():
 
 is_candle_active = False
 
-def do_calm_candle(revenge):
+def do_check_evil():
+       return os.popen("python check_evil.py").read()
+
+def do_calm_candle():
+	revenge = float(do_check_evil())
 	can_red_pin.write(0)
 	can_blue_pin.write(0)
 	if revenge > 0.5:
@@ -60,16 +64,17 @@ def do_clear():
 
 already_pressed = False
 
+do_calm_candle()
+
 while True:
 	progress_pin.write(1)
-	do_calm_candle(0.4)
 	if closebtn_pin.read() and already_pressed == False:
 		already_pressed = True
 		is_candle_active = False
 		thread.start_new_thread(blink_progress, ())
 		do_faces()
-		is_active = False
-		thread.start_new_thread(do_calm_candle, (255,))
+		is_active = False		
+		do_calm_candle()
 	if closebtn_pin.read() == 0:
 		already_pressed = False
 
