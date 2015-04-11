@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var mark = require('./routes/mark');
+var evil = require('./routes/evil');
 var clear = require('./routes/clear');
 var upload = require('./routes/upload');
 var test = require('./routes/test');
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/mark', mark);
 app.use('/clear', clear);
+app.use('/evil', evil);
 app.use('/upload', upload);
 app.use('/test', test);
 
