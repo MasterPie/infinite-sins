@@ -1,0 +1,5 @@
+#! /bin/sh
+
+export PYTHONPATH=$PYTHONPATH:$(dirname $(find /usr/local -name mraa.py))
+
+python start.py

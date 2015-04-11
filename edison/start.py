@@ -42,31 +42,13 @@ def blink_progress():
 
 is_candle_active = False
 
-def do_calm_candle(redness):
-	is_candle_active = True
-	while is_candle_active:
-		redV =  random.randint(127,redness)
-		blueV = random.randint(0,64)
-		greenV = random.randint(50,80)
-		startTime = 1
-		while startTime < 100:
-			if redV != 0:
-				can_red_pin.write(1)
-			if greenV != 0:
-				can_green_pin.write(1)
-			if blueV != 0:
-				can_blue_pin.write(1)
-			for x in range(0,255):
-				if x >= redV:
-					can_red_pin.write(0)
-				if x >= greenV:
-					can_green_pin.write(0)
-				if x >= blueV:
-					can_blue_pin.write(0)
-			startTime = startTime + 1
-		can_red_pin.write(0)
-		can_green_pin.write(0)
-		can_blue_pin.write(0)
+def do_calm_candle(revenge):
+	can_red_pin.write(0)
+	can_blue_pin.write(0)
+	if revenge > 0.5:
+		can_red_pin.write(1)
+	else:
+		can_blue_pin.write(1)
 	
 def do_faces():
 	flash_pin.write(1)
@@ -78,15 +60,16 @@ def do_clear():
 
 already_pressed = False
 
-thread.start_new_thread(do_calm_candle,(255,))
-
 while True:
 	progress_pin.write(1)
+	do_calm_candle(0.4)
 	if closebtn_pin.read() and already_pressed == False:
 		already_pressed = True
+		is_candle_active = False
 		thread.start_new_thread(blink_progress, ())
 		do_faces()
 		is_active = False
+		thread.start_new_thread(do_calm_candle, (255,))
 	if closebtn_pin.read() == 0:
 		already_pressed = False
 
