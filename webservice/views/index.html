@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pandora</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="refresh" content="10">
+		<style type="text/css">
+		
+			/* http://meyerweb.com/eric/tools/css/reset/ 
+			   v2.0 | 20110126
+			   License: none (public domain)
+			*/
+
+			html, body, div, span, applet, object, iframe,
+			h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+			a, abbr, acronym, address, big, cite, code,
+			del, dfn, em, img, ins, kbd, q, s, samp,
+			small, strike, strong, sub, sup, tt, var,
+			b, u, i, center,
+			dl, dt, dd, ol, ul, li,
+			fieldset, form, label, legend,
+			table, caption, tbody, tfoot, thead, tr, th, td,
+			article, aside, canvas, details, embed, 
+			figure, figcaption, footer, header, hgroup, 
+			menu, nav, output, ruby, section, summary,
+			time, mark, audio, video {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				font-size: 100%;
+				font: inherit;
+				vertical-align: baseline;
+			}
+			/* HTML5 display-role reset for older browsers */
+			article, aside, details, figcaption, figure, 
+			footer, header, hgroup, menu, nav, section {
+				display: block;
+			}
+			body {
+				line-height: 1;
+			}
+			ol, ul {
+				list-style: none;
+			}
+			blockquote, q {
+				quotes: none;
+			}
+			blockquote:before, blockquote:after,
+			q:before, q:after {
+				content: '';
+				content: none;
+			}
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+			
+			/* -----  */
+		
+		
+			ul{
+				list-style:none;
+				padding: 0;}
+			li {
+				float: left;
+				margin-right: 1em;}
+			
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: #FDFEFE;
+				font-family: sans-serif;
+			}
+			
+			img {
+				border: none;
+			}
+			
+			.container{
+				min-height: 1200px; 
+				background: url('images/moon-nature-.jpg') 0px 0px no-repeat;}
+				
+				.circular {
+					width: 200px;
+					//height: 300px;
+					border-radius: 200px;
+					-webkit-border-radius: 200px;
+					-moz-border-radius: 200px;
+					background: url(http://link-to-your/image.jpg) no-repeat;
+					box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+					-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+					-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);}
+			
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>My Loved Ones</h1>
+			<ul>
+				<% for(var i=0; i < items.length;i++){ %>
+				<li><img alt="Embedded Image" src="data:image/png;base64,<%=  items[i].image.toString() %>"/></li>
+				<%}%>
+				<li>
+					<img class="circular" alt="Embedded Image" src="http://www.personal.psu.edu/users/d/k/dka115/face%20and%20skin%20reference%20for%20character%20sculpting/Face-Injury-First-Aid-Treatment.png" width="200px"/>
+				</li>
+				<li><img  class="circular" alt="Embedded Image" src="http://www.streetnortheast.com/images/Joe-Face-on-CREDIT-SIMON-FOWLER.jpg" width="200px"/></li>
+			</ul>
+		</div>
+	</body>
+</html>
+
