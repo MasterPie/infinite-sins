@@ -6,7 +6,8 @@ image_path = sys.argv[1]
 from urllib2 import Request, urlopen, URLError
 from urllib import urlencode
 
-host = "http://vivek-notebook:3000"
+#host = "http://vivek-notebook:3000"
+host = "http://pacific-journey-1425.herokuapp.com"
 
 try:
 	with open(image_path, "rb") as image_file:
