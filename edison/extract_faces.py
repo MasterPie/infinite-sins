@@ -16,6 +16,7 @@ from urllib import urlencode
 PADDING = 20
 
 video_capture = cv2.VideoCapture(0)
+video_capture.set(cv.CV_CAP_PROP_CONTRAST,0.07)
 ret, img = video_capture.read()
 video_capture.release()
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

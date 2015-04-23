@@ -3,7 +3,7 @@ from urllib2 import Request, urlopen, URLError
 from urllib import urlencode
 
 #host = "http://vivek-notebook:3000"
-host = "http://pacific-journey-1425.herokuapp.com"
+host = "http://pacific-journey-1425.azurewebsites.net"
 
 try:
 

@@ -49,7 +49,13 @@ def do_check_evil():
        return os.popen("python check_evil.py").read()
 
 def do_calm_candle():
-	revenge = float(do_check_evil())
+	ret_val = do_check_evil()
+	revenge = 0
+	try:
+		revenge = float(do_check_evil())
+	except ValueError:
+		print "No pictures in database!"
+	
 	can_red_pin.write(0)
 	can_blue_pin.write(0)
 	if revenge > 0.5:
@@ -73,6 +79,7 @@ do_calm_candle()
 
 while True:
 	progress_pin.write(1)
+	do_faces()
 	if closebtn_pin.read() and already_pressed == False:
 		already_pressed = True
 		is_candle_active = False
