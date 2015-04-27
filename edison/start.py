@@ -6,8 +6,8 @@ import os
 import thread
 import random
 
-from pixy import *
-from ctypes import *
+#from pixy import *
+#from ctypes import *
 
 is_active = False
 
@@ -38,18 +38,18 @@ can_red_pin = mraa.Gpio(11)
 can_red_pin.dir(mraa.DIR_OUT)
 
 # Initialize Pixy Interpreter thread #
-pixy_init()
+#pixy_init()
 
-class Blocks (Structure):
-  _fields_ = [ ("type", c_uint),
-               ("signature", c_uint),
-               ("x", c_uint),
-               ("y", c_uint),
-               ("width", c_uint),
-               ("height", c_uint),
-               ("angle", c_uint) ]
+#class Blocks (Structure):
+#  _fields_ = [ ("type", c_uint),
+#               ("signature", c_uint),
+#               ("x", c_uint),
+#               ("y", c_uint),
+#               ("width", c_uint),
+#               ("height", c_uint),
+#               ("angle", c_uint) ]
 
-blocks = Block()
+#blocks = Block()
 
 def blink_progress():
 	is_active = True
@@ -66,15 +66,14 @@ used_pen = False
 def do_check_evil():
        return os.popen("python check_evil.py").read()
 
-def do_detect_pen():
-	while 1:
+#def do_detect_pen():
+#	while 1:
 
-        	count = pixy_get_blocks(1, blocks)
+#        	count = pixy_get_blocks(1, blocks)
 
-        	if count > 0:
-   	 	# Blocks found #
-			used_pen = True
-                	print ("EVIIIIL")
+#        	if count > 0:
+#   	 	# Blocks found #
+#			used_pen = True
 
 
 def do_calm_candle():
@@ -95,7 +94,10 @@ def do_calm_candle():
 def do_faces():
 	flash_pin.write(1)
 	flash_pin_sec.write(1)
-	os.system("python extract_faces.py haarcascade_frontalface_default.xml")
+	if used_pen:
+		os.system("python extract_faces.py haarcascade_frontalface_default.xml evil")
+	else:
+		os.system("python extract_faces.py haarcascade_frontalface_default.xml notevil")
 	flash_pin.write(0)
 	flash_pin_sec.write(0)
 
@@ -106,7 +108,7 @@ already_pressed = False
 
 do_calm_candle()
 
-thread.start_new_thread(do_detect_pen, ())
+#thread.start_new_thread(do_detect_pen, ())
 
 while True:
 	#flash_pin.write(1)

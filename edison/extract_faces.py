@@ -6,6 +6,8 @@ import os
 import numpy as np
 
 cascPath = sys.argv[1]
+evil = sys.argv[2]
+
 faceCascade = cv2.CascadeClassifier(cascPath);
 
 SNAPSHOT_DIR = "snapshots/"
@@ -48,5 +50,7 @@ snapshot_id = 1
 
 for face_img in face_imgs:
 	os.system("python transmit.py " + SNAPSHOT_DIR + `snapshot_id` + '.jpg')
+	if evil == "evil":
+		os.system("python make_evil.py")
 	snapshot_id = snapshot_id + 1
 
