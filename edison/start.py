@@ -6,6 +6,9 @@ import os
 import thread
 import random
 
+from pixy import *
+from ctypes import *
+
 is_active = False
 
 #PINS
@@ -34,6 +37,20 @@ can_blue_pin.dir(mraa.DIR_OUT)
 can_red_pin = mraa.Gpio(11)
 can_red_pin.dir(mraa.DIR_OUT)
 
+# Initialize Pixy Interpreter thread #
+pixy_init()
+
+class Blocks (Structure):
+  _fields_ = [ ("type", c_uint),
+               ("signature", c_uint),
+               ("x", c_uint),
+               ("y", c_uint),
+               ("width", c_uint),
+               ("height", c_uint),
+               ("angle", c_uint) ]
+
+blocks = Block()
+
 def blink_progress():
 	is_active = True
 	while is_active:
@@ -44,9 +61,21 @@ def blink_progress():
 	progress_pin.write(1)
 
 is_candle_active = False
+used_pen = False
 
 def do_check_evil():
        return os.popen("python check_evil.py").read()
+
+def do_detect_pen():
+	while 1:
+
+        	count = pixy_get_blocks(1, blocks)
+
+        	if count > 0:
+   	 	# Blocks found #
+			used_pen = True
+                	print ("EVIIIIL")
+
 
 def do_calm_candle():
 	ret_val = do_check_evil()
@@ -77,9 +106,12 @@ already_pressed = False
 
 do_calm_candle()
 
+thread.start_new_thread(do_detect_pen, ())
+
 while True:
+	#flash_pin.write(1)
 	progress_pin.write(1)
-	do_faces()
+	#do_faces()
 	if closebtn_pin.read() and already_pressed == False:
 		already_pressed = True
 		is_candle_active = False
