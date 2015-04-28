@@ -28,13 +28,13 @@ clearbtn_pin = mraa.Gpio(4)
 clearbtn_pin.dir(mraa.DIR_IN)
 
 ##CANDLE_LED
-can_green_pin = mraa.Gpio(13)
+can_green_pin = mraa.Gpio(11)
 can_green_pin.dir(mraa.DIR_OUT)
 
 can_blue_pin = mraa.Gpio(12)
 can_blue_pin.dir(mraa.DIR_OUT)
 
-can_red_pin = mraa.Gpio(11)
+can_red_pin = mraa.Gpio(13)
 can_red_pin.dir(mraa.DIR_OUT)
 
 # Initialize Pixy Interpreter thread #
@@ -86,7 +86,7 @@ def do_calm_candle():
 	
 	can_red_pin.write(0)
 	can_blue_pin.write(0)
-	if revenge > 0.5:
+	if revenge > 0: #0.5
 		can_red_pin.write(1)
 	else:
 		can_blue_pin.write(1)
@@ -127,5 +127,6 @@ while True:
 	if clearbtn_pin.read():
 		thread.start_new_thread(blink_progress,())
 		do_clear()
+		do_calm_candle()
 		is_active = False
 	progress_pin.write(1)
